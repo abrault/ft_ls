@@ -10,8 +10,14 @@
 static char	*ft_ls_l(char *f_name)
 {
 	char			*ptr;
-	int				i;
+	int			i;
+	struct group		*grp;
+	struct stat		statbuf;
 
+	if ((grp = getgrgid(statbuf.st_gid)) != NULL)
+	    printf(" %-8.8s", grp->gr_name);
+	else
+	    printf(" %-8d", statbuf.st_gid);
 	i = (33 + ft_strlen(f_name) + ft_strlen("") + ft_strlen(""));
 	ptr = malloc(sizeof(char) * i);
 	return (ptr);
