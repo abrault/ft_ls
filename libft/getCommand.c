@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include "libft.h"
 
-int	getCommand(int argc, char **argv, char **option)
+int			getCommand(int argc, char **argv, char **option)
 {
-	int	y;
-	int	j;
+	int		y;
+	int		j;
 	char	*str;
+	char	*ptr;
 
 	if (argc == 1)
 		return (1);
-	str = malloc(sizeof(char) * ft_strlen(*option));
-	ft_strcpy(str, *option);
+	str = ft_strdup(*option);
 	j = 1;
 	y = 1;
 	while (y < argc)
@@ -20,15 +20,13 @@ int	getCommand(int argc, char **argv, char **option)
 			return (0);
 		while (argv[y][j] != '\0')
 		{
-			if (ft_strchr(str, argv[y][j]) == NULL)
+			if ((ptr = ft_strchr(str, argv[y][j])) == NULL)
 				return (0);
-			printf("Code : %d\n", ft_strlen(str) - ft_strlen(ft_strchr(str, argv[y][j])));
-			printf("Code : %c\n", *option[0]);
-			printf("Code : %c\n", *option[0]);
-			*option[ft_strlen(str) - ft_strlen(ft_strchr(str, argv[y][j]))] = '_';
+			(*option)[ptr - str] = '_';
 			j++;
 		}
 		y++;
 	}
+	free(str);
 	return (1);
 }

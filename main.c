@@ -1,19 +1,53 @@
 #include <stdio.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <pwd.h>
 #include "libft/libft.h"
+#include <sys/types.h>
+#include <uuid/uuid.h>
 
-int	main(int argc, char **argv)
+/*
+static char	*ft_ls_l(char *f_name)
+{
+	char			*ptr;
+	int				i;
+
+	i = (33 + ft_strlen(f_name) + ft_strlen("") + ft_strlen(""));
+	ptr = malloc(sizeof(char) * i);
+	return (ptr);
+}
+*/
+
+int			ft_ls(char *option)
+{
+	DIR				*dir;
+	struct	dirent	*l_dir;
+
+	dir = opendir(".");
+	while ((l_dir = readdir(dir)))
+	{
+		if (l_dir->d_name[0] != '.' || option[0] == '_')
+		{
+			if (option[2] == '_')
+			{
+				;//ft_ls_l(l_dir->name);
+			}
+			ft_putendl(l_dir->d_name);
+		}
+	}
+	option[0] = '0';
+	closedir(dir);
+	return (0);
+}
+
+int			main(int argc, char **argv)
 {
 	char	*option;
-	char	l_option[] = "arlRt";
 
-	option = (char *)malloc(sizeof(char) * ft_strlen(l_option));
-	ft_strcpy(option, l_option);
-	printf("Ptr : %p\n", &option);
+	option = ft_strdup("arlRt");
 	if (getCommand(argc, argv, &option))
-	{
-		printf("\n\nOption : %s\n", option);
-	}
+		ft_ls(option);
 	else
-		printf("ls: illegal option\nusage: ls [%s] [file ...]\n", l_option);
+		printf("ls: illegal option\nusage: ls [%s] [file ...]\n", "arlRt");
 	return (0);
 }
