@@ -5,8 +5,8 @@
 #include "libft/libft.h"
 #include <sys/types.h>
 #include <uuid/uuid.h>
+#include <grp.h>
 
-/*
 static char	*ft_ls_l(char *f_name)
 {
 	char			*ptr;
@@ -16,12 +16,11 @@ static char	*ft_ls_l(char *f_name)
 	ptr = malloc(sizeof(char) * i);
 	return (ptr);
 }
-*/
 
 int			ft_ls(char *option)
 {
 	DIR				*dir;
-	struct	dirent	*l_dir;
+	struct	dirent			*l_dir;
 
 	dir = opendir(".");
 	while ((l_dir = readdir(dir)))
@@ -30,7 +29,7 @@ int			ft_ls(char *option)
 		{
 			if (option[2] == '_')
 			{
-				;//ft_ls_l(l_dir->name);
+				ft_ls_l(l_dir->d_name);
 			}
 			ft_putendl(l_dir->d_name);
 		}
